@@ -1,0 +1,82 @@
+py -m venv myworld
+python -m venv myVirt         
+python3 -m venv myworld        
+'cоздание вирт окруж'
+
+.\myVirt\Scripts\activate      - windows
+source myworld/bin/activate     - mac
+'активация вирт окруж'
+
+pip install django    
+'установка джанго'
+
+django-admin startproject myproject
+создание проекта джанго, myproject - это имя
+
+python manage.py runserver
+запуск
+
+py manage.py startapp myapp
+cоздание приложения в проекте
+проект это коробка для приложений
+
+настройте приложений
+INSTALLED_APPS добавьте название
+
+создайте папку templates
+папка которая хранит все html файлы
+
+создайте папку static
+папка которая хранит все ресурсы html файла 
+(стили, анимацию, некоторые картинки)
+
+есть media папка
+cоздается автоматически
+
+
+import os
+базовая библиотека для управления системой, 
+показывает где проект, либо помогает с путями
+
+
+настройте templates папку в settings.py:
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+
+
+настройте static папку в settings.py:
+
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+
+
+найстройте urls.py так чтобы каждому 
+файлу передавала static и media
+
+from django.conf.urls.static import static
+from django.conf import settings
+
+
+это в конец файла urls.py
+
+urlpatterns += static(settings.MEDIA_URL,
+document_root = settings.MEDIA_ROOT)
